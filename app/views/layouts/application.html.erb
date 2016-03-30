@@ -1,14 +1,33 @@
-<!DOCTYPE html>
 <html>
 <head>
   <title>Tutorialrails</title>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+  <header>
+    <nav class="be-red white large-padding">
+      <ul class="no-list row center-xs middle-xs">
+        <li class="col-md li-nav">
+          <h1 class="no-margin" id="logo">Blog Rails</h1>
+        </li>
+        <li class="col-md li-nav">
+          <%= link_to "Inicio", root_path %>
+        </li>
+        <li class="col-md li-nav">
+          Diseño
+        </li>
+        <li class="col-md li-nav">
+          Programación
+        </li>
+        <li class="col-md li-nav">
+          Tecnología
+        </li>
+      </ul>
+    </nav>
+  </header>
 <%= yield %>
-
 </body>
 </html>
