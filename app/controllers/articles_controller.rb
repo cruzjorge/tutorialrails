@@ -1,4 +1,7 @@
 class ArticlesController < ApplicationController
+    before_action :authenticate_user!, except: [:show, :index]
+    before_action :set_article, except: [:index, :new, :create]
+
     #GET /articles
     def index
         @articles = Article.all
@@ -6,7 +9,7 @@ class ArticlesController < ApplicationController
 
     #GET /articles/:id
     def show
-        @article = Article.find(params[:id])
+        @article.update_visits_count
     end
 
     #GET /articles/new
@@ -15,7 +18,6 @@ class ArticlesController < ApplicationController
     end
 
     def edit
-        @article = Article.find(params[:id])
     end
 
     #POST /articles
@@ -31,7 +33,6 @@ class ArticlesController < ApplicationController
     #DELETE /articles/:id
     def destroy
         #DELETE FROM articles
-        @article = Article.find(params[:id])
         @article.destroy # Destroy eliminar el objeto de la BD
         redirect_to articles_path
     end
@@ -40,7 +41,6 @@ class ArticlesController < ApplicationController
     def update
         #UPDATE
         # @article.update_attributes({title: 'Nuevo titulo'})
-        @article = Article.find(params[:id])
         if @article.update(article_params)
             redirect_to @article
         else
@@ -49,6 +49,10 @@ class ArticlesController < ApplicationController
     end
 
     private
+
+    def set_article
+        @article = Article.find(params[:id])
+    end
 
     def article_params
         params.require(:article).permit(:title, :body)
